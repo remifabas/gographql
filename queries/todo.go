@@ -17,13 +17,15 @@ func GetTodoQuery() *graphql.Field {
 
 			// ... Implémenter la logique de base de données ici
 			fmt.Println("i'm here")
+			fmt.Println("params ", params.Args)
 
 			/* let's mock some datas */
 			var oneTodo types.Todo
 			oneTodo.ID = 36
 			oneTodo.Title = "Assaj and Talzin"
+			oneTodo.Complete = false
 
-			todos = append(todos, oneTodo, oneTodo, oneTodo)
+			todos = append(todos, oneTodo, oneTodo)
 
 			return todos, nil
 		},

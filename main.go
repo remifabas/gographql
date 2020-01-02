@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/friendsofgo/graphiql"
 	"github.com/gographql/queries"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/handler"
@@ -32,6 +33,13 @@ func main() {
 	port := 8383
 	http.Handle("/", httpHandler)
 	log.Print("ready: listening on port :", port)
+
+	// First argument must be same as graphql handler path
+	graphiqlHandler, err := graphiql.NewGraphiqlHandler("/query")
+	if err != nil {
+		panic(err)
+	}
+	http.Handle("/graphiql", graphiqlHandler)
 
 	http.ListenAndServe(":8383", nil)
 }
