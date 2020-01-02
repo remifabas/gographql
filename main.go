@@ -23,16 +23,14 @@ func main() {
 	}
 
 	schema, err := graphql.NewSchema(schemaConfig)
-
 	if err != nil {
 		log.Fatalf("Failed to create new schema, error: %v", err)
 	}
 
 	httpHandler := handler.New(&handler.Config{Schema: &schema})
 
-	port := 8383
 	http.Handle("/", httpHandler)
-	log.Print("ready: listening on port :", port)
+	log.Print("ready: listening on port :8383")
 
 	// First argument must be same as graphql handler path
 	graphiqlHandler, err := graphiql.NewGraphiqlHandler("/query")

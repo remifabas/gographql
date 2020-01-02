@@ -9,25 +9,25 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-// GetTodoQuery returns the queries available against todo type.
-func GetTodoQuery() *graphql.Field {
+// GetPersonQuery returns the queries available against person type.
+func GetPersonQuery() *graphql.Field {
 	return &graphql.Field{
 
-		Type: graphql.NewList(types.TodoType),
+		Type: graphql.NewList(types.PersonType),
 		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-			var todos []types.Todo
+			var persons []types.Person
 			start := time.Now()
 			// ... Implémenter la logique de base de données ici
 			/* let's mock some datas */
-			var oneTodo types.Todo
-			oneTodo.ID = 36
-			oneTodo.Title = "Assaj and Talzin"
-			oneTodo.Complete = false
+			var onePerson types.Person
+			onePerson.ID = 36
+			onePerson.Firstname = "Rey"
+			onePerson.Lastname = "Palpatine"
 
-			todos = append(todos, oneTodo, oneTodo)
+			persons = append(persons, onePerson, onePerson)
 			elapsed := time.Since(start)
 			log.Printf("resolve took %s", elapsed)
-			return todos, nil
+			return persons, nil
 		},
 	}
 }
