@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	// Create the schema configuration i.e. queries and mutations
 	schemaConfig := graphql.SchemaConfig{
 		Query: graphql.NewObject(graphql.ObjectConfig{
 			Name:   "RootQuery",
@@ -22,18 +23,20 @@ func main() {
 		}),*/
 	}
 
+	// load the schema configuration in a schema
 	schema, err := graphql.NewSchema(schemaConfig)
 	if err != nil {
 		log.Fatalf("Failed to create new schema, error: %v", err)
 	}
 
+	// handle the schema
 	httpHandler := handler.New(&handler.Config{Schema: &schema})
 
-	http.Handle("/", httpHandler)
+	http.Handle("/graphql", httpHandler)
 	log.Print("ready: listening on port :8383")
 
 	// First argument must be same as graphql handler path
-	graphiqlHandler, err := graphiql.NewGraphiqlHandler("/query")
+	graphiqlHandler, err := graphiql.NewGraphiqlHandler("/graphql")
 	if err != nil {
 		panic(err)
 	}

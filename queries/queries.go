@@ -7,7 +7,8 @@ import (
 // GetRootFields returns all the available queries.
 func GetRootFields() graphql.Fields {
 	return graphql.Fields{
-		"todo":   GetTodoQuery(),
-		"person": GetPersonQuery(),
+		"person":   GetPersonQuery(),
+		"author":   GetAuthorQuery(),
+		"tutorial": GetTutorialQuery(),
 	}
 }

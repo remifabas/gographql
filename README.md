@@ -12,7 +12,7 @@ go get	"github.com/graphql-go/handler"
 # dev
 
 ## build :
-go build -o $GOPATH/bin/graphqlgo main.go
+go build -o /home/remi/go/bin/graphqlgo main.go
 
 ## launch
-$GOPATH/bin/graphqlgo
+/home/remi/go/bin/graphqlgo

@@ -4,11 +4,11 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-// Todo type definition.
+// Person type definition.
 type Person struct {
-	ID        int    `db:"id" json:"id"`
-	Firstname string `db:"firstname" json:"firstname"`
-	Lastname  string `db:"lastname" json:"lastname"`
+	ID        int    `json:"id"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
 }
 
 // PersonType is the GraphQL schema for the user type.
