@@ -1,8 +1,6 @@
 package queries
 
 import (
-	"fmt"
-
 	"github.com/gographql/types"
 
 	"github.com/graphql-go/graphql"
@@ -24,7 +22,6 @@ func GetTutorialQuery() *graphql.Field {
 		},
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			// take in the ID argument
-			fmt.Println(p.Args["id"].(int))
 			id, ok := p.Args["id"].(int)
 			var tutoResponse []types.Tutorial
 			if ok {
@@ -32,7 +29,6 @@ func GetTutorialQuery() *graphql.Field {
 				for _, tutorial := range tutos {
 					if int(tutorial.ID) == id {
 						// return our tutorial
-						fmt.Println("found")
 						tutoResponse = append(tutoResponse, tutorial)
 						return tutoResponse, nil
 					}
