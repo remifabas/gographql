@@ -11,8 +11,12 @@ go get	"github.com/graphql-go/handler"
 
 # dev
 
+## launch database before
+docker run -d -p 27017:27017 --name mongodb mongo:latest
+
 ## build :
 go build -o /home/remi/go/bin/graphqlgo main.go
 
 ## launch
 /home/remi/go/bin/graphqlgo
+
