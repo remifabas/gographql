@@ -23,18 +23,10 @@ func GetTutorialQuery() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			// take in the ID argument
 			id, ok := p.Args["id"].(int)
-			var tutoResponse []types.Tutorial
 			if ok {
-				// Parse our tutorial array for the matching id
-				for _, tutorial := range tutos {
-					if int(tutorial.ID) == id {
-						// return our tutorial
-						tutoResponse = append(tutoResponse, tutorial)
-						return tutoResponse, nil
-					}
-				}
+				tutoResponse, status := GetTutorialByID(id)
 			}
-			return tutos, nil
+			return tutoResponse, nil
 		},
 	}
 }
