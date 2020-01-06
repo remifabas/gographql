@@ -15,21 +15,8 @@ func GetAuthorQuery() *graphql.Field {
 		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
 
 			// ... Implémenter la logique de base de données ici
-			return authors, nil
+			authors, status := GetAllAuthor()
+			return authors, status
 		},
 	}
-}
-
-/* let's mock some datas */
-var authors = []types.Author{
-	{
-		ID:        1,
-		Name:      "rl kabach",
-		Tutorials: []int{1, 2},
-	},
-	{
-		ID:        1,
-		Name:      "rl kabach",
-		Tutorials: []int{1, 2},
-	},
 }

@@ -23,22 +23,14 @@ func GetTutorialQuery() *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			// take in the ID argument
 			id, ok := p.Args["id"].(int)
+			var tutoResponse []types.Tutorial
+			var status error
 			if ok {
-				tutoResponse, status := GetTutorialByID(id)
+				tutoResponse, status = GetTutorialByID(id)
+			} else {
+				tutoResponse, status = GetAllTutorial()
 			}
-			return tutoResponse, nil
+			return tutoResponse, status
 		},
 	}
-}
-
-/* let's mock some datas */
-var tutos = []types.Tutorial{
-	{
-		ID:    1,
-		Title: "title tutorial",
-	},
-	{
-		ID:    2,
-		Title: "bel kaoui",
-	},
 }
