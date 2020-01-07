@@ -6,7 +6,7 @@ import "github.com/gographql/types"
 var tutorials = []types.Tutorial{
 	{
 		ID:    12,
-		Title: "JO Wil Tsonga",
+		Title: "Jo Wil Tsonga",
 	},
 	{
 		ID:    26,

@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// GetMongoClient return a client to access mongodabatase
 func GetMongoClient() *mongo.Client {
 	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
@@ -29,6 +30,7 @@ func GetMongoClient() *mongo.Client {
 	return client
 }
 
+// InitSomeDatas init somes values in mongodb
 func InitSomeDatas() {
 	client := GetMongoClient()
 	collection := client.Database("graphqlApi").Collection("author")
