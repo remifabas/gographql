@@ -14,9 +14,8 @@ import (
 )
 
 func main() {
-	// Init connexion to database and load some value in it
+	// Init connexion to database
 	mongo.OpenMongoClient()
-	mongo.InitSomeDatas()
 	// Create the schema configuration i.e. queries and mutations
 	schemaConfig := graphql.SchemaConfig{
 		Query: graphql.NewObject(graphql.ObjectConfig{

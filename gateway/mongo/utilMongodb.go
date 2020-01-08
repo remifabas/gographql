@@ -37,29 +37,31 @@ func OpenMongoClient() {
 }
 
 // InitSomeDatas init somes values in mongodb
-func InitSomeDatas() {
+func InitSomeDatas() error {
 	collection := DB.Collection("author")
-
+	var problem error
 	for _, author := range initialAuthors {
 		insertResult, err := collection.InsertOne(context.TODO(), author)
 		if err != nil {
+			problem = err
 			log.Fatal(err)
 		} else {
 			fmt.Println("insert sucess : ", insertResult)
 		}
 	}
+	return problem
 }
 
 /* let's mock some datas */
 var initialAuthors = []types.Author{
 	{
 		ID:        1,
-		Name:      "el kabach",
-		Tutorials: []int{1, 2},
+		Name:      "tried something",
+		Tutorials: []int{1, 2, 3},
 	},
 	{
 		ID:        1,
-		Name:      "djibbril",
-		Tutorials: []int{1, 2},
+		Name:      "tried smething else",
+		Tutorials: []int{5, 4},
 	},
 }

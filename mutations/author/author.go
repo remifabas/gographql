@@ -13,7 +13,8 @@ import (
 // GetCreateAuthorMutation creates a new user and returns it.
 func GetCreateAuthorMutation() *graphql.Field {
 	return &graphql.Field{
-		Type: types.AuthorType,
+		Type:        types.AuthorType,
+		Description: "Create an anthor Name and Tutorial needed",
 		Args: graphql.FieldConfigArgument{
 			"Name": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
@@ -34,6 +35,24 @@ func GetCreateAuthorMutation() *graphql.Field {
 			_, err := collection.InsertOne(context.TODO(), author)
 
 			return author, err
+		},
+	}
+}
+
+// InitSomeAuthor ...
+func InitSomeAuthor() *graphql.Field {
+	return &graphql.Field{
+		Type:        types.StatusType,
+		Description: "Init two authors in database for test purpose",
+		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+			err := mongo.InitSomeDatas()
+			var status types.Status
+			if err != nil {
+				status.Success = "internal error"
+			} else {
+				status.Success = "init done"
+			}
+			return status, err
 		},
 	}
 }
