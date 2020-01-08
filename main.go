@@ -5,11 +5,12 @@ import (
 	"net/http"
 
 	"github.com/friendsofgo/graphiql"
+	"github.com/gographql/mutations"
 	"github.com/gographql/queries"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/handler"
 
-	mongo "github.com/gographql/gateway"
+	mongo "github.com/gographql/gateway/mongo"
 )
 
 func main() {
@@ -22,10 +23,10 @@ func main() {
 			Name:   "RootQuery",
 			Fields: queries.GetRootFields(),
 		}),
-		/*Mutation: graphql.NewObject(graphql.ObjectConfig{
+		Mutation: graphql.NewObject(graphql.ObjectConfig{
 			Name:   "RootMutation",
 			Fields: mutations.GetRootFields(),
-		}),*/
+		}),
 	}
 
 	// load the schema configuration
