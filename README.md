@@ -9,14 +9,24 @@ go get	"github.com/graphql-go/graphql"
 go get	"github.com/graphql-go/handler"
 ~~~
 
-# dev
+# GO GRAPHQL
+This repository is a test ! Always WIP !  
+Feel free to tell me if you thinks something is wrong  
 
-## launch database before
+I tried to build a graphql api : https://graphql.org/
+
+## Development commands
+~~~
+# Initialize docker container
 docker run -d -p 27017:27017 --name mongodb mongo:latest
 
-## build :
+# Relauch/start/stop docker container
+docker stop mongodb
+docker start mongodb
+
+# build application:
 go build -o /home/remi/go/bin/graphqlgo main.go
 
-## launch
+# launch application
 /home/remi/go/bin/graphqlgo
-
+~~~

@@ -13,6 +13,8 @@ import (
 )
 
 func main() {
+	// Init connexion to database and load some value in it
+	mongo.OpenMongoClient()
 	mongo.InitSomeDatas()
 	// Create the schema configuration i.e. queries and mutations
 	schemaConfig := graphql.SchemaConfig{

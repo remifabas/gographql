@@ -2,30 +2,37 @@ package gateway
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"log"
 
-	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/gographql/types"
+
+	mongo "github.com/gographql/gateway/mongo"
 )
 
-func FindAllAuthor(c *mongo.Collection) string {
-	// create a value into which the result can be decoded
-	var authors []types.Author
+// FindAllAuthor Find all authors in mondb
+func FindAllAuthor() []types.Author {
+	collection := mongo.DB.Collection("author")
 
-	err := c.Find(context.TODO(), filter).Decode(&result)
+	cur, err := collection.Find(context.Background(), bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("Found a single document: %+v\n", result)
-
-	out, err := json.Marshal(result)
-	if err != nil {
-		log.Fatal(err)
+	defer cur.Close(context.Background())
+	var allAuthors []types.Author
+	for cur.Next(context.Background()) {
+		// To decode into a struct, use cursor.Decode()
+		var result types.Author
+		err := cur.Decode(&result)
+		if err != nil {
+			log.Fatal(err)
+		}
+		allAuthors = append(allAuthors, result)
+	}
+	if err := cur.Err(); err != nil {
+		return nil
 	}
 
-	return string(out)
+	return allAuthors
 }

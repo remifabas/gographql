@@ -10,44 +10,35 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// GetMongoClient return a client to access mongodabatase
-func GetMongoClient() *mongo.Client {
+// DBCon and DB : client connexion mongo database and DB for database graphql
+var (
+	DBCon *mongo.Client
+	DB    *mongo.Database
+)
+
+// OpenMongoClient open a connection to a database
+func OpenMongoClient() {
 	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	// Connect to MongoDB
-	client, err := mongo.Connect(context.TODO(), clientOptions)
+	var err error
+	DBCon, err = mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Check the connection
-	err = client.Ping(context.TODO(), nil)
-
+	err = DBCon.Ping(context.TODO(), nil)
+	log.Println("-> Mongo Client Connected")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Connected to MongoDB!")
-	return client
+	DB = DBCon.Database("graphqlApi")
 }
 
 // InitSomeDatas init somes values in mongodb
 func InitSomeDatas() {
-	client := GetMongoClient()
-	collection := client.Database("graphqlApi").Collection("author")
-
-	/* let's mock some datas */
-	initialAuthors := []types.Author{
-		{
-			ID:        1,
-			Name:      "el kabach",
-			Tutorials: []int{1, 2},
-		},
-		{
-			ID:        1,
-			Name:      "djibbril",
-			Tutorials: []int{1, 2},
-		},
-	}
+	collection := DB.Collection("author")
 
 	for _, author := range initialAuthors {
 		insertResult, err := collection.InsertOne(context.TODO(), author)
@@ -57,4 +48,18 @@ func InitSomeDatas() {
 			fmt.Println("insert sucess : ", insertResult)
 		}
 	}
+}
+
+/* let's mock some datas */
+var initialAuthors = []types.Author{
+	{
+		ID:        1,
+		Name:      "el kabach",
+		Tutorials: []int{1, 2},
+	},
+	{
+		ID:        1,
+		Name:      "djibbril",
+		Tutorials: []int{1, 2},
+	},
 }
