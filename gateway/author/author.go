@@ -2,7 +2,6 @@ package gateway
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -64,8 +63,6 @@ func FindAuthorById(oid primitive.ObjectID) types.Author {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Find this Author : ", theAuthor)
-
 	return theAuthor
 
 }
