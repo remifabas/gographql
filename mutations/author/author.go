@@ -2,8 +2,10 @@ package mutations
 
 import (
 	"context"
+	"time"
 
 	"github.com/gographql/types"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/graphql-go/graphql"
 
@@ -24,10 +26,14 @@ func GetCreateAuthorMutation() *graphql.Field {
 			},
 		},
 		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+			// TODO MOVE THIOS CODE TO GATEWAY
 			intSlice := InterfaceSliceToSlice(params.Args["Tutorials"].([]interface{}))
 			author := types.Author{
+				ID:        primitive.NewObjectID(),
 				Name:      params.Args["Name"].(string),
 				Tutorials: intSlice,
+				CreatedAt: time.Now(),
+				UpdatedAt: time.Now(),
 			}
 
 			collection := mongo.DB.Collection("author")

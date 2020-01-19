@@ -30,3 +30,14 @@ go build -o /home/remi/go/bin/graphqlgo main.go
 # launch application
 /home/remi/go/bin/graphqlgo
 ~~~
+
+
+Insert some data can be usefull ;)
+~~~
+db.tutorial.insert({
+    "title" : "tried something",
+    "author" : ObjectId("5e24b5516e707fdb3685b3b5"),
+    "created_at" : ISODate("2020-01-19T20:00:17.260Z"),
+    "updated_at" : ISODate("2020-01-19T20:00:17.260Z")
+})
+~~~

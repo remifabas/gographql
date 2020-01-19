@@ -15,14 +15,14 @@ func GetTutorialQuery() *graphql.Field {
 		// pick specific tutorials. In this case
 		// we want to be able to specify the ID of the
 		// tutorial we want to retrieve
-		Args: graphql.FieldConfigArgument{
+		/*Args: graphql.FieldConfigArgument{
 			"id": &graphql.ArgumentConfig{
-				Type: graphql.Int,
+				Type: graphql.String,
 			},
-		},
-		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+		},*/
+		/*Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 			// take in the ID argument
-			id, ok := p.Args["id"].(int)
+			id, ok := p.Args["id"].(string)
 			var tutoResponse []types.Tutorial
 			var status error
 			if ok {
@@ -31,6 +31,12 @@ func GetTutorialQuery() *graphql.Field {
 				tutoResponse, status = GetAllTutorial()
 			}
 			return tutoResponse, status
+		},*/
+		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+
+			// ... Implémenter la logique de base de données ici
+			tutorials, status := GetAllTutorial()
+			return tutorials, status
 		},
 	}
 }

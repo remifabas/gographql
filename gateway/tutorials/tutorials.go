@@ -11,28 +11,28 @@ import (
 	mongo "github.com/gographql/gateway/mongo"
 )
 
-// FindAllAuthor Find all authors in mondb
-func FindAllAuthor() []types.Author {
-	collection := mongo.DB.Collection("author")
+// FindAllTutorialFind all tutorial in mondb
+func FindAllTutorials() []types.Tutorial {
+	collection := mongo.DB.Collection("tutorial")
 
 	cur, err := collection.Find(context.Background(), bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer cur.Close(context.Background())
-	var allAuthors []types.Author
+	var allTuto []types.Tutorial
 	for cur.Next(context.Background()) {
 		// To decode into a struct, use cursor.Decode()
-		var result types.Author
+		var result types.Tutorial
 		err := cur.Decode(&result)
 		if err != nil {
 			log.Fatal(err)
 		}
-		allAuthors = append(allAuthors, result)
+		allTuto = append(allTuto, result)
 	}
 	if err := cur.Err(); err != nil {
 		return nil
 	}
 
-	return allAuthors
+	return allTuto
 }
