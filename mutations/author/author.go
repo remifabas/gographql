@@ -1,7 +1,6 @@
 package mutations
 
 import (
-	"context"
 	"time"
 
 	"github.com/gographql/types"
@@ -9,6 +8,7 @@ import (
 
 	"github.com/graphql-go/graphql"
 
+	authorGateway "github.com/gographql/gateway/author"
 	mongo "github.com/gographql/gateway/mongo"
 )
 
@@ -26,7 +26,7 @@ func GetCreateAuthorMutation() *graphql.Field {
 			},
 		},
 		Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-			// TODO MOVE THIOS CODE TO GATEWAY
+
 			intSlice := InterfaceSliceToSlice(params.Args["Tutorials"].([]interface{}))
 			author := types.Author{
 				ID:        primitive.NewObjectID(),
@@ -35,11 +35,8 @@ func GetCreateAuthorMutation() *graphql.Field {
 				CreatedAt: time.Now(),
 				UpdatedAt: time.Now(),
 			}
-
-			collection := mongo.DB.Collection("author")
-
-			_, err := collection.InsertOne(context.TODO(), author)
-
+			var authors []types.Author
+			authors, err := authorGateway.InsertAuthor(append(authors, author))
 			return author, err
 		},
 	}

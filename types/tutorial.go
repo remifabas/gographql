@@ -11,7 +11,7 @@ import (
 type Tutorial struct {
 	ID        primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 	Title     string             `json:"Title"`
-	Author    primitive.ObjectID `bson:"author" json:"author,omitempty"`
+	Author    Author             `bson:"author" json:"author,omitempty"`
 	CreatedAt time.Time          `bson:"created_at" json:"created_at,omitempty"`
 	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at,omitempty"`
 }
@@ -23,7 +23,7 @@ var TutorialType = graphql.NewObject(
 		Fields: graphql.Fields{
 			"ID":        &graphql.Field{Type: graphql.String},
 			"Title":     &graphql.Field{Type: graphql.String},
-			"Author":    &graphql.Field{Type: graphql.String},
+			"Author":    &graphql.Field{Type: AuthorType},
 			"CreatedAt": &graphql.Field{Type: graphql.DateTime},
 			"UpdatedAt": &graphql.Field{Type: graphql.DateTime},
 		},

@@ -2,9 +2,11 @@ package gateway
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/gographql/types"
 
@@ -35,4 +37,35 @@ func FindAllAuthor() []types.Author {
 	}
 
 	return allAuthors
+}
+
+// InsertAuthor insert in mongodb some authors
+func InsertAuthor(author []types.Author) ([]types.Author, error) {
+
+	collection := mongo.DB.Collection("author")
+
+	for _, a := range author {
+		_, err := collection.InsertOne(context.TODO(), a)
+		if err != nil {
+			log.Fatal(err)
+			return nil, nil
+		}
+	}
+
+	return author, nil
+}
+
+// FindAuthorById ...
+func FindAuthorById(oid primitive.ObjectID) types.Author {
+	var theAuthor types.Author
+	c := mongo.DB.Collection("author")
+	err := c.FindOne(context.TODO(), bson.M{"_id": oid}).Decode(&theAuthor)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Find this Author : ", theAuthor)
+
+	return theAuthor
+
 }

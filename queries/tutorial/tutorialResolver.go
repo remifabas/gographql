@@ -22,7 +22,5 @@ import (
 
 // GetAllTutorial return all tutorials alviable
 func GetAllTutorial() ([]types.Tutorial, error) {
-	// implement database acces
-
 	return tuto.FindAllTutorials(), nil
 }
