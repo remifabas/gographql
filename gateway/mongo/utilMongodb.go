@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/gographql/types"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -55,13 +57,17 @@ func InitSomeDatas() error {
 /* let's mock some datas */
 var initialAuthors = []types.Author{
 	{
-		ID:        1,
+		ID:        primitive.NewObjectID(),
 		Name:      "tried something",
 		Tutorials: []int{1, 2, 3},
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	},
 	{
-		ID:        1,
-		Name:      "tried smething else",
-		Tutorials: []int{5, 4},
+		ID:        primitive.NewObjectID(),
+		Name:      "tried something else",
+		Tutorials: []int{1, 2, 3},
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	},
 }

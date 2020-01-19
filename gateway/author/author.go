@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -25,6 +26,7 @@ func FindAllAuthor() []types.Author {
 		// To decode into a struct, use cursor.Decode()
 		var result types.Author
 		err := cur.Decode(&result)
+		fmt.Println(result) // output:
 		if err != nil {
 			log.Fatal(err)
 		}

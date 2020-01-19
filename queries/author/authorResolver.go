@@ -8,6 +8,6 @@ import (
 
 // GetAllAuthor return all tutorials available
 func GetAllAuthor() ([]types.Author, error) {
-
+	author.TestRem()
 	return author.FindAllAuthor(), nil
 }

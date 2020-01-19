@@ -14,7 +14,7 @@ import (
 func GetCreateAuthorMutation() *graphql.Field {
 	return &graphql.Field{
 		Type:        types.AuthorType,
-		Description: "Create an anthor Name and Tutorial needed",
+		Description: "Create an Author Name and Tutorial needed",
 		Args: graphql.FieldConfigArgument{
 			"Name": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
