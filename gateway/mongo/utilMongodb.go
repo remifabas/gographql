@@ -21,7 +21,7 @@ var (
 // OpenMongoClient open a connection to a database
 func OpenMongoClient() {
 	// Set client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI("mongodb://0.0.0.0:27017")
 	// Connect to MongoDB
 	var err error
 	DBCon, err = mongo.Connect(context.TODO(), clientOptions)

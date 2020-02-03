@@ -18,7 +18,7 @@ I tried to build a graphql api : https://graphql.org/
 ## Development commands
 ~~~
 # Initialize docker container
-docker run -d -p 27017:27017 --name mongodb mongo:latest
+docker run -d -p 27017:27017 --network rem_network --name mongodb mongo:latest
 
 # Relauch/start/stop docker container
 docker stop mongodb
