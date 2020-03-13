@@ -20,21 +20,29 @@ var (
 
 // OpenMongoClient open a connection to a database
 func OpenMongoClient() {
-	// Set client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-	// Connect to MongoDB
 	var err error
-	DBCon, err = mongo.Connect(context.TODO(), clientOptions)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// Set client options
+	// when working with no docker compose
+	//clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI("mongodb://mongodb:27017")
+	// Connect to MongoDB
+	DBCon, err := mongo.NewClient(clientOptions)
 
-	// Check the connection
-	err = DBCon.Ping(context.TODO(), nil)
-	log.Println("-> Mongo Client Connected")
 	if err != nil {
 		log.Fatal(err)
 	}
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	err = DBCon.Connect(ctx)
+	if err != nil {
+		log.Fatal("JoWilfriedTsonga first says : ", err)
+	}
+	// Check the connection
+	err = DBCon.Ping(ctx, nil)
+
+	if err != nil {
+		log.Fatal("JoWilfriedTsonga say : ", err)
+	}
+	log.Println("-> Mongo Client Connected")
 	DB = DBCon.Database("graphqlApi")
 }
 
