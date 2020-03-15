@@ -31,6 +31,8 @@ go build -o /home/remi/go/bin/graphqlgo main.go
 /home/remi/go/bin/graphqlgo
 ~~~
 
+# Use docker-compose : (rebuild)
+docker-compose up -d --force-recreate
 
 Insert some data can be usefull ;)
 ~~~
